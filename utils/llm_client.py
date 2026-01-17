@@ -9,18 +9,18 @@ load_dotenv()
 
 class LLMClient:
     def __init__(self, api_key: Optional[str] = None):
-        # Check for Google API Key first if user wants Gemini
+        
         self.google_api_key = os.getenv("GOOGLE_API_KEY")
         self.openai_api_key = api_key or os.getenv("OPENAI_API_KEY")
         self.provider = "openai"
         
         self.model = os.getenv("LLM_MODEL", "gpt-4o-mini")
         
-        # If model name contains "gemini", switch provider
+        
         if "gemini" in self.model.lower():
             self.provider = "google"
             if not self.google_api_key:
-                 # Fallback or error, but let's just log print for CLI tool
+                 
                  print("Warning: GOOGLE_API_KEY not set for Gemini model.")
             else:
                 genai.configure(api_key=self.google_api_key)
@@ -39,7 +39,7 @@ class LLMClient:
     def _query_google(self, system_prompt: str, user_prompt: str, expect_json: bool) -> Dict[str, Any] | str:
         try:
             model = genai.GenerativeModel(self.model)
-            # Gemini doesn't have system prompts in the same way, but we can prepend it
+            
             full_prompt = f"System Instruction: {system_prompt}\n\nUser Task: {user_prompt}"
             
             if expect_json:
@@ -76,7 +76,7 @@ class LLMClient:
                 try:
                     return json.loads(content)
                 except json.JSONDecodeError:
-                     # Fallback if model returns bad JSON
+                     
                     return {"error": "Failed to parse JSON response", "raw_content": content}
             
             return content
@@ -89,9 +89,9 @@ class LLMClient:
         Cleans up and parses JSON from LLM output, handling common issues (extra text, code blocks, etc).
         """
         import re
-        # Remove code block markers
+        
         content = re.sub(r"^```json|^```|```$", "", content.strip(), flags=re.MULTILINE)
-        # Find first valid JSON object in the string
+        
         match = re.search(r"{.*}", content, re.DOTALL)
         if match:
             json_str = match.group(0)

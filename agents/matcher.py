@@ -29,7 +29,7 @@ class MatchingScoringAgent:
         Focus on whether 'required_skills' from the job are present in the 'skills' or 'roles' of the candidate.
         """
 
-        # We serialize the inputs to string for the prompt
+        
         user_prompt = f"""
         Candidate Profile:
         {json.dumps(resume_data, indent=2)}

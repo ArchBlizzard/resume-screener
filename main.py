@@ -44,7 +44,7 @@ def main():
     # Initialize Client
     try:
         llm = LLMClient() 
-        # Check based on provider
+        
         if llm.provider == "openai" and not getattr(llm, 'client', None):
              print("Warning: OpenAI API Key not preset. Set OPENAI_API_KEY.")
         elif llm.provider == "google" and not getattr(llm, 'google_api_key', None):
@@ -70,7 +70,7 @@ def main():
             with open(j_path, 'r', encoding='utf-8') as f:
                 job_text = f.read()
             
-            # 3. Job Understanding (Once per Job)
+            # 3. Job Understanding
             job_data = job_agent.analyze(job_text)
         except Exception as e:
             print(f"Failed to process job {j_path}: {e}")
@@ -97,7 +97,7 @@ def main():
                 # 5. Decision
                 final_decision = decision_agent.decide(match_analysis)
                 
-                # Output brief result
+                
                 print(f"    = Result: {final_decision.get('recommendation')} (Score: {final_decision.get('match_score')})")
                 print(f"      Reason: {final_decision.get('reasoning_summary')}")
 
