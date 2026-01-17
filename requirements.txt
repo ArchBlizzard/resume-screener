@@ -1,0 +1,6 @@
+openai
+python-docx
+pdfminer.six
+python-dotenv
+pydantic
+google-generativeai
