@@ -98,8 +98,12 @@ def main():
                 final_decision = decision_agent.decide(match_analysis)
                 
                 
+                # Output final decision
                 print(f"    = Result: {final_decision.get('recommendation')} (Score: {final_decision.get('match_score')})")
-                print(f"      Reason: {final_decision.get('reasoning_summary')}")
+                
+                # Print full JSON as requested
+                print("\n     Decision")
+                print(json.dumps(final_decision, indent=2))
 
             except Exception as e:
                 print(f"    x Error screening resume {r_path}: {e}")
