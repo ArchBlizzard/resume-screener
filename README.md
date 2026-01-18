@@ -111,4 +111,10 @@ python main.py resumes/ job-descriptions/
 }
 ```
 
+## Future Improvements
+
+*   **Bias Detection Layer**: Add a dedicated agent specifically designed to audit decisions for potential bias regarding gender, ethnicity, or university prestige before the final output.
+*   **Feedback Loop & Active Learning**: Implement a mechanism to capture recruiter overrides (e.g., when a human approves a "Rejected" candidate). These data points would be stored and used to dynamically update the agent's few-shot prompts, effectively allowing the system to learn specific team preferences over time.
+
+
 
